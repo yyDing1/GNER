@@ -22,15 +22,15 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and xxl).
 
-| Model         | # Parameters | Zero-shot Average$F_1$ | Supervised Average$F_1$ |          🤗 HuggingFace<br />Download Link          |
-| ------------- | -----------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
-| GNER-LLaMA    |           7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
-| GNER-T5-base  |          77M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
-| GNER-T5-large |         248M |           63.5           |           85.45           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-large) |
-| GNER-T5-xl    |         783M |           66.1           |           85.94           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xl)  |
-| GNER-T5-xxl   |          11B |           69.1           |           86.15           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xxl)  |
+| Model         | # Params | Zero-shot Average $F_1$ | Supervised Average $F_1$ |          🤗 HuggingFace<br />Download Link          |
+| ------------- | -------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
+| GNER-LLaMA    |       7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
+| GNER-T5-base  |      77M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
+| GNER-T5-large |     248M |           63.5           |           85.45           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-large) |
+| GNER-T5-xl    |     783M |           66.1           |           85.94           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xl)  |
+| GNER-T5-xxl   |      11B |           69.1           |           86.15           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xxl)  |
 
-## Task schema: An example
+## Task schema: Incorporating negative instances into training
 
 <p align="center">
 <img src="assets/task_schema.png">
