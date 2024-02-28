@@ -65,6 +65,8 @@ def lcs_solve(a, b):
 
 # A fast version of LCS with a complexity of O(NlogN)
 # in the condiction that there are few depulicate words in the sentence
+# input: a = [word_1, word_2, ..., word_n], b = [word_1, word_2, ..., word_m]
+# return: match_idx = [idx_1, idx_2, ..., idx_n] (correspoding matching index between a and b)
 def lcs_solve_fast(a, b):
     n, m = len(a), len(b)
     match_idx = [-1] * n
@@ -130,7 +132,6 @@ def hierarchical_matching(raw_words, words, labels, tokenizer=None):
     # Condition 3, compute LCS(raw_words, words) in O(NlogN)
     match_idx = lcs_solve_fast(raw_words, words)
     match_labels = [labels[idx] if idx != -1 and labels[idx] else 'O' for idx in match_idx]
-    # import pdb; pdb.set_trace()
     return match_labels
 
 # convert the unstructured texts into structured entities
