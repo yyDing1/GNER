@@ -32,7 +32,9 @@ We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and
 
 ## Task schema: An example
 
-![img]()
+<p align="center">
+<img src="assets/task_schema.png">
+</p>
 
 ## Hierarchical Matching: A faster algorithm for structuring
 
