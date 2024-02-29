@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://github.com/yyDing1/GNER/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/yyDing1/GNER"></a>
     <a href="https://huggingface.co/collections/dyyyyyyyy/gner-65dda2cb96c6e35c814dea56"><img alt="Pretrained Models" src="https://img.shields.io/badge/🤗 HuggingFace-Pretrained Models-green"></a>
-    <a href="https://arxiv.org/abs/2402.16602"><img alt="Paper" src="https://img.shields.io/badge/📄-Paper-orange">
+    <a href="https://arxiv.org/abs/2402.16602"><img alt="Paper" src="https://img.shields.io/badge/📄-Paper-orange"></a>
     <a href="https://opennlg.cn/"><img src="https://img.shields.io/badge/Organization-OpenNLG%20Group-blueviolet"></a>
 </p>
 
@@ -12,7 +12,6 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 * 📖 Paper: [Rethinking Negative Instances for Generative Named Entity Recognition](https://arxiv.org/abs/2402.16602)
 * 💾 Models in the 🤗 HuggingFace Hub: [GNER-Models](https://huggingface.co/collections/dyyyyyyyy/gner-65dda2cb96c6e35c814dea56)
 * 🔁 Quick Reproduction Materials: [Generation Results](model_predictions/)
-* 📁 Code for training and inference will be released soon.
 
 <p align="center">
 <img src="assets/zero_shot_results.png">
@@ -22,12 +21,12 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and xxl).
 
-| Model         | # Params | Zero-shot Average $F_1$ | Supervised Average $F_1$ |          🤗 HuggingFace<br />Download Link          |
+| Model         | # Params | Zero-shot Average$F_1$ | Supervised Average$F_1$ |          🤗 HuggingFace<br />Download Link          |
 | ------------- | -------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
 | GNER-LLaMA    |       7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
-| GNER-T5-base  |      77M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
-| GNER-T5-large |     248M |           63.5           |           85.45           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-large) |
-| GNER-T5-xl    |     783M |           66.1           |           85.94           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xl)  |
+| GNER-T5-base  |     248M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
+| GNER-T5-large |     783M |           63.5           |           85.45           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-large) |
+| GNER-T5-xl    |       3B |           66.1           |           85.94           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xl)  |
 | GNER-T5-xxl   |      11B |           69.1           |           86.15           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xxl)  |
 
 ## Task schema: Incorporating negative instances into training
@@ -94,7 +93,17 @@ def lcs_solve_fast(a, b):
     return match_idx
 ```
 
-## Quick Reproduction
+## How to use GNER
+
+### Requirements
+
+You should install the dependencies:
+
+```bash
+pip install torch>=2.1.0 datasets>=2.17.0 deepspeed>=0.13.4 accelerate>=0.27.2 transformers>=4.38.1 protobuf>=4.25.3 
+```
+
+### Quick Reproduction
 
 We also provide all the generated results for quick reproduction of our results. The `model_predictions` folder contains the generated results of GNER-LLaMA-7B and GNER-T5-xxl (including the ground truth). You can execute the following commands to evaluate the generated results:
 
@@ -106,6 +115,24 @@ python evaluate.py --tokenizer-path google/flan-t5-xxl --prediction-path predict
 ```
 
 Other generated results can be found at [here](https://drive.google.com/drive/folders/1kg7YDRk8jK4_Bo19jJpZtdAQMBoucppW?usp=drive_link), and the execution process is similar to the two examples mentioned above.
+
+### Training
+
+First, you should download the training data from [here](https://drive.google.com/drive/folders/1jJsqDhR8Pdg4Qlh5pHm0WZ6Nsk1wEcv9?usp=drive_link), put it in the current directory and rename it as `data`
+
+The training scripts are outlined in folder `scripts`, you can train and evaluate the model by the following command:
+
+```bash
+# Train and evaluate LLaMA Model
+bash scripts/train_llama_task_adaptation.sh
+# Evaluate only
+bash 
+
+# Train T5 xxl Model
+bash scripts/train_t5_xxl_task_adaptation.sh
+# Evaluate only
+bash 
+```
 
 ## Citation
 
