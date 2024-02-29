@@ -3,8 +3,7 @@ set -x
 port=$(shuf -i25000-30000 -n1)
 
 BEAM_SIZE=1
-# MODEL_NAME_OR_PATH=output/flan-t5-xxl-task-adaptation/checkpoint-xxx
-MODEL_NAME_OR_PATH=/nvme/dyy/GNER/output/flan-t5-base-task-adaptation/checkpoint-4944
+MODEL_NAME_OR_PATH=output/flan-t5-xxl-task-adaptation/checkpoint-xxx
 DATA_DIR=data
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs
 INSTRUCTION_FILE=configs/instruction_configs/instruction.json
@@ -12,7 +11,7 @@ OUTPUT_DIR=output/flan-t5-xxl-task-adaptation-beam${BEAM_SIZE}
 
 RUN_NAME=flan-t5-xxl-experiment
 
-deepspeed --include="localhost:3,4,5,6" --master_port $port src/run.py \
+deepspeed --include="localhost:0,1,2,3,4,5,6,7" --master_port $port src/run.py \
     --generation_num_beams ${BEAM_SIZE} \
     --do_predict \
     --predict_with_generate \
