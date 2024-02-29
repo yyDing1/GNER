@@ -1,0 +1,30 @@
+[
+    {
+        "dataset name": "mit-movie",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "mit-restaurant",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "crossner_ai",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "crossner_literature",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "crossner_music",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "crossner_politics",
+        "sampling strategy": "full"
+    },
+    {
+        "dataset name": "crossner_science",
+        "sampling strategy": "full"
+    }
+]

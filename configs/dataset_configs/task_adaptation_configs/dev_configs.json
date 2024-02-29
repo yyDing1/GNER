@@ -1,0 +1,44 @@
+[
+    {
+        "dataset name": "mit-movie",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "mit-restaurant",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "crossner_ai",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "crossner_literature",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "crossner_music",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "crossner_politics",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "crossner_science",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    }
+]

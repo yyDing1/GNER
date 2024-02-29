@@ -1,0 +1,116 @@
+[
+    {
+        "dataset name": "AnatEM",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "bc2gm",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "bc4chemd",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "bc5cdr",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "broad_twitter_corpus",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "conllpp",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "conll2003",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "FabNER",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "FindVehicle",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "HarveyNER",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "mit-movie",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "mit-restaurant",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "MultiNERD",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "ncbi",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "Ontonotes",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "PolyglotNER",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "TweetNER7",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "WikiANN-en",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    },
+    {
+        "dataset name": "WikiNeural",
+        "sampling strategy": "random",
+        "max_num_instances": 200,
+        "over_sampling": false
+    }
+]
