@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-import warnings
 import json
 from dataclasses import dataclass, field
 from typing import Optional
@@ -9,7 +8,6 @@ from typing import Optional
 import datasets
 import numpy as np
 from datasets import load_dataset
-from filelock import FileLock
 
 import transformers
 from transformers import (
