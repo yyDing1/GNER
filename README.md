@@ -11,7 +11,7 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 * 📖 Paper: [Rethinking Negative Instances for Generative Named Entity Recognition](https://arxiv.org/abs/2402.16602)
 * 💾 Models in the 🤗 HuggingFace Hub: [GNER-Models](https://huggingface.co/collections/dyyyyyyyy/gner-65dda2cb96c6e35c814dea56)
-* 🔁 Quick Reproduction Materials: [Generation Results](model_predictions/)
+* 🔁 Reproduction Materials: [Materials](https://drive.google.com/drive/folders/1m2FqDgItEbSoeUVo-i18AwMvBcNkZD46?usp=drive_link)
 
 <p align="center">
 <img src="assets/zero_shot_results.png">
@@ -116,7 +116,7 @@ python evaluate.py --tokenizer-path google/flan-t5-xxl --prediction-path predict
 
 Other generated results can be found at [here](https://drive.google.com/drive/folders/1kg7YDRk8jK4_Bo19jJpZtdAQMBoucppW?usp=drive_link), and the execution process is similar to the two examples mentioned above.
 
-### Training
+### Training & Inference
 
 First, you should download the training data from [here](https://drive.google.com/drive/folders/1jJsqDhR8Pdg4Qlh5pHm0WZ6Nsk1wEcv9?usp=drive_link), put it in the current directory and rename it as `data`
 
@@ -126,12 +126,12 @@ The training scripts are outlined in folder `scripts`, you can train and evaluat
 # Train and evaluate LLaMA Model
 bash scripts/train_llama_task_adaptation.sh
 # Evaluate only
-bash 
+bash scripts/eval_llama_task_adaptation.sh
 
 # Train T5 xxl Model
 bash scripts/train_t5_xxl_task_adaptation.sh
 # Evaluate only
-bash 
+bash scripts/eval_t5_task_adaptation.sh
 ```
 
 ## Citation
