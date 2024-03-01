@@ -21,7 +21,7 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and xxl).
 
-| Model         | # Params | Zero-shot Average $F_1$ | Supervised Average $F_1$ |          🤗 HuggingFace<br />Download Link          |
+| Model         | # Params | Zero-shot Average$F_1$ | Supervised Average$F_1$ |          🤗 HuggingFace<br />Download Link          |
 | ------------- | -------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
 | GNER-LLaMA    |       7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
 | GNER-T5-base  |     248M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
@@ -34,13 +34,15 @@ We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and
 GNER-LLaMA:
 
 ```python
+>>> import torch
 >>> from transformers import AutoTokenizer, AutoModelForCasualLM
 >>> tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
->>> model = AutoModelForSeq2SeqLM.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
+>>> model =AutoModelForCasualLM.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B", torch_dtype=torch.bfloat16).cuda()
 >>> model = model.eval()
 >>> instruction_template = "Please analyze the sentence provided, identifying the type of entity for each word on a token-by-token basis.\nOutput format is: word_1(label_1), word_2(label_2), ...\nWe'll use the BIO-format to label the entities, where:\n1. B- (Begin) indicates the start of a named entity.\n2. I- (Inside) is used for words within a named entity but are not the first word.\n3. O (Outside) denotes words that are not part of a named entity.\n"
+>>> sentence = "did george clooney make a musical in the 1980s"
 >>> entity_labels = ["genre", "rating", "review", "plot", "song", "average ratings", "director", "character", "trailer", "year", "actor", "title"]
->>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(label_list)} and O.\n"
+>>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(entity_labels)} and O.\nSentence: {sentence}"
 >>> instruction = f"[INST] {instruction} [/INST]"
 >>> inputs = tokenizer(instruction, return_tensors="pt").to("cuda")
 >>> outputs = model.generate(**inputs, max_new_tokens=640)
@@ -53,13 +55,15 @@ GNER-LLaMA:
 GNER-T5:
 
 ```python
+>>> import torch
 >>> from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 >>> tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-T5-xxl")
->>> model = AutoModelForSeq2SeqLM.from_pretrained("dyyyyyyyy/GNER-T5-xxl")
+>>> model = AutoModelForSeq2SeqLM.from_pretrained("dyyyyyyyy/GNER-T5-xxl", torch_dtype=torch.bfloat16).cuda()
 >>> model = model.eval()
 >>> instruction_template = "Please analyze the sentence provided, identifying the type of entity for each word on a token-by-token basis.\nOutput format is: word_1(label_1), word_2(label_2), ...\nWe'll use the BIO-format to label the entities, where:\n1. B- (Begin) indicates the start of a named entity.\n2. I- (Inside) is used for words within a named entity but are not the first word.\n3. O (Outside) denotes words that are not part of a named entity.\n"
+>>> sentence = "did george clooney make a musical in the 1980s"
 >>> entity_labels = ["genre", "rating", "review", "plot", "song", "average ratings", "director", "character", "trailer", "year", "actor", "title"]
->>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(label_list)} and O.\n"
+>>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(entity_labels)} and O.\nSentence: {sentence}"
 >>> inputs = tokenizer(instruction, return_tensors="pt").to("cuda")
 >>> outputs = model.generate(**inputs, max_new_tokens=640)
 >>> response = tokenizer.decode(outputs[0], skip_special_tokens=True)
