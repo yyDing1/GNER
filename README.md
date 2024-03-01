@@ -21,7 +21,7 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and xxl).
 
-| Model         | # Params | Zero-shot Average$F_1$ | Supervised Average$F_1$ |          🤗 HuggingFace<br />Download Link          |
+| Model         | # Params | Zero-shot Average $F_1$ | Supervised Average $F_1$ |          🤗 HuggingFace<br />Download Link          |
 | ------------- | -------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
 | GNER-LLaMA    |       7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
 | GNER-T5-base  |     248M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |

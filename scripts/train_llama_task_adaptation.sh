@@ -2,7 +2,7 @@ set -x
 
 port=$(shuf -i25000-30000 -n1)
 
-MODEL_NAME_OR_PATH=/nvme/hf_models/llama-7b-hf/
+MODEL_NAME_OR_PATH=yahma/llama-7b-hf
 DATA_DIR=data
 TRAIN_JSON_DIR=data/pile-ner.json
 DATA_CONFIG_DIR=configs/dataset_configs/task_adaptation_configs

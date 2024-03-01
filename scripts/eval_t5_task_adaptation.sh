@@ -12,6 +12,7 @@ OUTPUT_DIR=output/flan-t5-xxl-task-adaptation-beam${BEAM_SIZE}
 RUN_NAME=flan-t5-xxl-experiment
 
 deepspeed --include="localhost:0,1,2,3,4,5,6,7" --master_port $port src/run.py \
+    --bf16 True --tf32 True \
     --generation_num_beams ${BEAM_SIZE} \
     --do_predict \
     --predict_with_generate \
