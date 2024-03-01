@@ -29,6 +29,44 @@ We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and
 | GNER-T5-xl    |       3B |           66.1           |           85.94           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xl)  |
 | GNER-T5-xxl   |      11B |           69.1           |           86.15           |  [link](https://huggingface.co/dyyyyyyyy/GNER-T5-xxl)  |
 
+## Demo usage
+
+GNER-LLaMA:
+
+```python
+>>> from transformers import AutoTokenizer, AutoModelForCasualLM
+>>> tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
+>>> model = AutoModelForSeq2SeqLM.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
+>>> model = model.eval()
+>>> instruction_template = "Please analyze the sentence provided, identifying the type of entity for each word on a token-by-token basis.\nOutput format is: word_1(label_1), word_2(label_2), ...\nWe'll use the BIO-format to label the entities, where:\n1. B- (Begin) indicates the start of a named entity.\n2. I- (Inside) is used for words within a named entity but are not the first word.\n3. O (Outside) denotes words that are not part of a named entity.\n"
+>>> entity_labels = ["genre", "rating", "review", "plot", "song", "average ratings", "director", "character", "trailer", "year", "actor", "title"]
+>>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(label_list)} and O.\n"
+>>> instruction = f"[INST] {instruction} [/INST]"
+>>> inputs = tokenizer(instruction, return_tensors="pt").to("cuda")
+>>> outputs = model.generate(**inputs, max_new_tokens=640)
+>>> response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+>>> response = response[preds.find("[/INST]") + len("[/INST]"):].strip()
+>>> print(response)
+"did(O) george(B-actor) clooney(I-actor) make(O) a(O) musical(B-genre) in(O) the(O) 1980s(B-year)"
+```
+
+GNER-T5:
+
+```python
+>>> from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+>>> tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-T5-xxl")
+>>> model = AutoModelForSeq2SeqLM.from_pretrained("dyyyyyyyy/GNER-T5-xxl")
+>>> model = model.eval()
+>>> instruction_template = "Please analyze the sentence provided, identifying the type of entity for each word on a token-by-token basis.\nOutput format is: word_1(label_1), word_2(label_2), ...\nWe'll use the BIO-format to label the entities, where:\n1. B- (Begin) indicates the start of a named entity.\n2. I- (Inside) is used for words within a named entity but are not the first word.\n3. O (Outside) denotes words that are not part of a named entity.\n"
+>>> entity_labels = ["genre", "rating", "review", "plot", "song", "average ratings", "director", "character", "trailer", "year", "actor", "title"]
+>>> instruction = f"{instruction_template}\nUse the specific entity tags: {', '.join(label_list)} and O.\n"
+>>> inputs = tokenizer(instruction, return_tensors="pt").to("cuda")
+>>> outputs = model.generate(**inputs, max_new_tokens=640)
+>>> response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+>>> print(response)
+"did(O) george(B-actor) clooney(I-actor) make(O) a(O) musical(B-genre) in(O) the(O) 1980s(B-year)"
+```
+
 ## Task schema: Incorporating negative instances into training
 
 <p align="center">
