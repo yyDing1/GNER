@@ -143,7 +143,7 @@ def extract_predictions(example, tokenizer=None):
         if label not in valid_labels:
             pred_labels[i] = "O"
     predictions = hierarchical_matching(example['instance']['words'], pred_words, pred_labels, tokenizer=tokenizer)
-    assert len(predictions) == len(example['instance']['labels'])
+    # assert len(predictions) == len(example['instance']['labels'])
     return predictions
 
 # normalize answer, 

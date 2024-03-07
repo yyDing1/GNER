@@ -11,7 +11,8 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 * 📖 Paper: [Rethinking Negative Instances for Generative Named Entity Recognition](https://arxiv.org/abs/2402.16602)
 * 💾 Models in the 🤗 HuggingFace Hub: [GNER-Models](https://huggingface.co/collections/dyyyyyyyy/gner-65dda2cb96c6e35c814dea56)
-* 🔁 Reproduction Materials: [Materials](https://drive.google.com/drive/folders/1m2FqDgItEbSoeUVo-i18AwMvBcNkZD46?usp=drive_link)
+* 🧪 Reproduction Materials: [Materials](https://drive.google.com/drive/folders/1m2FqDgItEbSoeUVo-i18AwMvBcNkZD46?usp=drive_link)
+* 🎨 Example Jupyter Notebooks: [GNER Notebooks](notebook.ipynb)
 
 <p align="center">
 <img src="assets/zero_shot_results.png">
@@ -21,7 +22,7 @@ We introduce GNER, a **G**enerative **N**amed **E**ntity **R**ecognition framewo
 
 We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and xxl).
 
-| Model         | # Params | Zero-shot Average$F_1$ | Supervised Average$F_1$ |          🤗 HuggingFace<br />Download Link          |
+| Model         | # Params | Zero-shot Average $F_1$ | Supervised Average $F_1$ |          🤗 HuggingFace<br />Download Link          |
 | ------------- | -------: | :----------------------: | :-----------------------: | :-------------------------------------------------: |
 | GNER-LLaMA    |       7B |           66.1           |           86.09           | [link](https://huggingface.co/dyyyyyyyy/GNER-LLaMA-7B) |
 | GNER-T5-base  |     248M |           59.5           |           83.21           | [link](https://huggingface.co/dyyyyyyyy/GNER-T5-base) |
@@ -31,13 +32,17 @@ We release five GNER models based on LLaMA (7B) and Flan-T5 (base, large, xl and
 
 ## Demo usage
 
+Please check out [Example Jupyter Notebooks](notebook.ipynb) for guidance on utilizing GNER models.
+
+A simple inference example is as follows:
+
 GNER-LLaMA:
 
 ```python
 >>> import torch
->>> from transformers import AutoTokenizer, AutoModelForCasualLM
+>>> from transformers import AutoTokenizer, AutoModelForCausalLM
 >>> tokenizer = AutoTokenizer.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B")
->>> model =AutoModelForCasualLM.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B", torch_dtype=torch.bfloat16).cuda()
+>>> model = AutoModelForCausalLM.from_pretrained("dyyyyyyyy/GNER-LLaMA-7B", torch_dtype=torch.bfloat16).cuda()
 >>> model = model.eval()
 >>> instruction_template = "Please analyze the sentence provided, identifying the type of entity for each word on a token-by-token basis.\nOutput format is: word_1(label_1), word_2(label_2), ...\nWe'll use the BIO-format to label the entities, where:\n1. B- (Begin) indicates the start of a named entity.\n2. I- (Inside) is used for words within a named entity but are not the first word.\n3. O (Outside) denotes words that are not part of a named entity.\n"
 >>> sentence = "did george clooney make a musical in the 1980s"
@@ -47,7 +52,7 @@ GNER-LLaMA:
 >>> inputs = tokenizer(instruction, return_tensors="pt").to("cuda")
 >>> outputs = model.generate(**inputs, max_new_tokens=640)
 >>> response = tokenizer.decode(outputs[0], skip_special_tokens=True)
->>> response = response[preds.find("[/INST]") + len("[/INST]"):].strip()
+>>> response = response[response.find("[/INST]") + len("[/INST]"):].strip()
 >>> print(response)
 "did(O) george(B-actor) clooney(I-actor) make(O) a(O) musical(B-genre) in(O) the(O) 1980s(B-year)"
 ```
