@@ -147,7 +147,7 @@ def lcs_solve_fast(a, b):
 You should install the dependencies:
 
 ```bash
-pip install torch>=2.1.0 datasets>=2.17.0 deepspeed>=0.13.4 accelerate>=0.27.2 transformers>=4.38.1 protobuf>=4.25.3 
+pip install torch datasets deepspeed accelerate transformers protobuf
 ```
 
 ### Quick Reproduction
