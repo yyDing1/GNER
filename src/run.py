@@ -91,8 +91,17 @@ class DataTrainingArguments:
     data_dir: str = field(
         default=None, metadata={"help": "The directory for saving the train/dev/test splits and labels."}
     )
+    no_load_gner_customized_datasets: bool = field(
+        default=False, metadata={"help": "Whether to load GNER datasets. If False, you should provide json files"}
+    )
     train_json_dir: str = field(
-        default=None, metadata={"help": "The directory for saving the train/dev/test splits and labels."}
+        default=None, metadata={"help": "The directory for saving the train data."}
+    )
+    valid_json_dir: str = field(
+        default=None, metadata={"help": "The directory for saving the valid data."}
+    )
+    test_json_dir: str = field(
+        default=None, metadata={"help": "The directory for saving the test data."}
     )
     data_config_dir: str = field(
         default=None, metadata={"help": "The json file for config training and testing tasks"}
@@ -205,14 +214,18 @@ def main():
 
     # Set seed before initializing model.
     set_seed(training_args.seed)
-    raw_datasets = load_dataset(
-        os.path.join(CURRENT_DIR, "gner_dataset.py"),
-        data_dir=data_args.data_dir,
-        instruction_file=data_args.instruction_file,
-        data_config_dir=data_args.data_config_dir,
-        add_dataset_name=data_args.add_dataset_name,
-    )
-    raw_datasets.cleanup_cache_files()
+    if not data_args.no_load_gner_customized_datasets:
+        raw_datasets = load_dataset(
+            os.path.join(CURRENT_DIR, "gner_dataset.py"),
+            data_dir=data_args.data_dir,
+            instruction_file=data_args.instruction_file,
+            data_config_dir=data_args.data_config_dir,
+            add_dataset_name=data_args.add_dataset_name,
+            trust_remote_code=True,
+        )
+        raw_datasets.cleanup_cache_files()
+    else:
+        raw_datasets = {}
 
     # Load pretrained model and tokenizer
     #
@@ -351,12 +364,18 @@ def main():
             )
 
     if training_args.do_eval:
-        if "validation" not in raw_datasets:
+        if data_args.valid_json_dir is not None:
+            eval_dataset = load_dataset("json", data_files=data_args.valid_json_dir, split="train")
+            logger.info(f"Use {data_args.valid_json_dir} as valid dataset, len(dataset) = {len(eval_dataset)}")
+        elif "valid" in raw_datasets:
+            eval_dataset = raw_datasets["validation"]
+        else:
             raise ValueError("--do_eval requires a validation dataset")
-        eval_dataset = raw_datasets["validation"]
+
         if data_args.max_eval_samples is not None:
             max_eval_samples = min(len(eval_dataset), data_args.max_eval_samples)
             eval_dataset = eval_dataset.select(range(max_eval_samples))
+
         with training_args.main_process_first(desc="validation dataset map pre-processing"):
             eval_dataset = eval_dataset.map(
                 preprocess_function,
@@ -367,12 +386,18 @@ def main():
             )
 
     if training_args.do_predict:
-        if "test" not in raw_datasets:
+        if data_args.test_json_dir is not None:
+            predict_dataset = load_dataset("json", data_files=data_args.test_json_dir, split="train")
+            logger.info(f"Use {data_args.test_json_dir} as predict dataset, len(dataset) = {len(predict_dataset)}")
+        elif "test" in raw_datasets:
+            predict_dataset = raw_datasets["test"]
+        else:
             raise ValueError("--do_predict requires a test dataset")
-        predict_dataset = raw_datasets["test"]
+
         if data_args.max_predict_samples is not None:
             max_predict_samples = min(len(predict_dataset), data_args.max_predict_samples)
             predict_dataset = predict_dataset.select(range(max_predict_samples))
+
         with training_args.main_process_first(desc="prediction dataset map pre-processing"):
             predict_dataset = predict_dataset.map(
                 preprocess_function,
