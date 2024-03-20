@@ -147,6 +147,9 @@ def lcs_solve_fast(a, b):
 You should install the dependencies:
 
 ```bash
+# CUDA 11.7 and above
+# PyTorch 2.0 and above.
+# transformers>=4.32.0,<4.38.0
 pip install torch datasets deepspeed accelerate transformers protobuf
 ```
 
